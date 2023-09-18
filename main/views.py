@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.core import serializers
 from main.models import Product
 
+
 def show_main(request):
     products = Product.objects.all()
 
@@ -25,6 +26,10 @@ def create_product(request):
 
     context = {'form': form}
     return render(request, "create_product.html", context)
+
+def delete(request): #delete isi form
+    Product.objects.all().delete()
+    return HttpResponse("delete products")
 
 def show_json(request):
     data = Product.objects.all()
