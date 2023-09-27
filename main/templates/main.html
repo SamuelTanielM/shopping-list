@@ -1,30 +1,82 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Shopping List Page</h1>
 
-    <h5>Name:</h5>
-    <p>{{name}}</p>
+<style>
+    #navigation-login {
+        background-color:  #5180ff;
+        color:rgb(255, 226, 250);
+        padding-left: 0px;
+        margin-right:-1cm;
+        margin-top:-15px;
+        margin-bottom: -15px;
+        padding-top: 10px;
+        padding-bottom: 70px;
+        height: 10mm;
+    }
 
-    <h5>Class:</h5>
-    <p>{{class}}</p>
+    #button-logout {
+        float: right;
+        margin-right: 3cm;
+    }
+
+    .table-nav{
+        padding-right: 30px;
+        padding-left: 15px;
+    }
+</style>
+
+<hr>
+<h1>Shopping List Page 🌸</h1>
+<hr>
+<nav id="navigation-login">
+    <table> 
+        <tr class="table-nav">
+            <th class="table-nav"><h5>Name:</h5></th>
+            <th class="table-nav"><h5>Class:</h5></th>
+        </tr>
+        <a href="{% url 'main:logout' %}">
+            <button id = "button-logout">
+                Logout
+            </button>
+        </a>
+        <tr class="table-nav">
+            <td class="table-nav">{{name}}</td>
+            <td class="table-nav">{{class}}</td>
+        </tr>
+    </table>
+</nav>
+<hr>
+
 
 <table>
     <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Date Added</th>
+        <th class="table-nav">Name</th>
+        <th class="table-nav">Price</th>
+        <th class="table-nav">Description</th>
+        <th class="table-nav">Date Added</th>
     </tr>
 
     {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
 
     {% for product in products %}
         <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.date_added}}</td>
+            <td class="table-nav">{{product.name}}</td>
+            <td class="table-nav">{{product.price}}</td>
+            <td class="table-nav">{{product.description}}</td>
+            <td class="table-nav">{{product.date_added}}</td>
+            <td class="table-nav">
+                <a href="{% url 'main:edit_product' product.pk %}"  class="table-nav">
+                    <button>
+                        Edit
+                    </button>
+                </a>
+                <a href="{% url 'main:delete_product' product.pk %}"  class="table-nav">
+                    <button>
+                        Delete
+                    </button>
+                </a>
+            </td>
         </tr>
     {% endfor %}
 </table>
@@ -38,10 +90,6 @@
         Add New Product
     </button>
 </a>
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
+
 
 {% endblock content %}
